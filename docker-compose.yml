@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  api:
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: sh -c "npm install && npm run start"
+    build: .
+    ports:
+      - 8080:80
+    links:
+      - db
+    environment:
+      PORT: 80
+
+  db:
+    image: postgres
+    ports:
+      - 8001:5432
+    environment:
+      POSTGRES_DB: dev
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

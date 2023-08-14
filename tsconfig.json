@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "noErrorTruncation": true,
+    "module": "NodeNext",
+    "target": "ESNext",
+    "strict": true,
+    "inlineSourceMap": true,
+    "strictPropertyInitialization": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "allowArbitraryExtensions": true,
+    "baseUrl": "./",
+    "typeRoots": ["./node_modules/@types", "./@types"],
+    "paths": {
+      "~/src/*": ["src/*"],
+      "~/tests/*": ["tests/*"]
+    },
+    "outDir": "./dist"
+  },
+  "include": [
+    "./**/*.ts",
+    "jest.config.js",
+    "lint-staged.config.js",
+    "prettier.config.js",
+    ".eslintrc.js"
+  ],
+  "exclude": [
+    "node_modules/**/*",
+    "dist",
+    ".vscode/**/*",
+    ".idea/**/*",
+    "seeds/data/**/*"
+  ]
+}
