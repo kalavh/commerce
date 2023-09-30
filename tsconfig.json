@@ -13,12 +13,10 @@
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "allowArbitraryExtensions": true,
-    "baseUrl": "./",
-    "typeRoots": ["./node_modules/@types", "./@types"],
-    "paths": {
-      "~/src/*": ["src/*"],
-      "~/tests/*": ["tests/*"]
-    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./@types"
+    ],
     "outDir": "./dist"
   },
   "include": [

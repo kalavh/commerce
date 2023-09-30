@@ -1,12 +1,17 @@
-module: {
+const path = require('path');
+
+module.exports = {
   rules: [
     {
-      test: /\.m?js$/,
-      exclude: /(node_modules)/,
+      test: /\.ts$/,
+      exclude: [
+        path.resolve(__dirname, 'node_modules'),
+        path.resolve(__dirname, '.webpack'),
+      ],
       use: {
-        // `.swcrc` can be used to configure swc
-        loader: "swc-loader"
+        loader: "swc-loader",
+
       }
     }
   ]
-}
+};
