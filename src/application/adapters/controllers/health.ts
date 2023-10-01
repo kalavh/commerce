@@ -1,17 +1,22 @@
 import { Get, JsonController } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
+import { autoInjectable } from 'tsyringe'
+import { GetHealthUseCase } from "../../use-case/auth/get-health-use-case";
 
 @JsonController('/health')
+@autoInjectable()
 export class Health {
-  constructor() { }
+  constructor(
+    private readonly getHealthUseCase: GetHealthUseCase
+  ) { }
 
   @OpenAPI({
     summary: 'Server Health',
-    description: 'This Is to check if server is running'
+    description: 'This is to check if server is running'
   })
   @Get('/')
-  teste() {
-    return 'Server is running'
+  getHealth() {
+    return this.getHealthUseCase.execute()
   }
 
 }
