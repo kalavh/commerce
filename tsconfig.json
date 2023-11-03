@@ -13,6 +13,11 @@
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "allowArbitraryExtensions": true,
+    "paths": {
+      "@/src/*": [
+        "./src/*"
+      ],
+    },
     "typeRoots": [
       "./node_modules/@types",
       "./@types"
