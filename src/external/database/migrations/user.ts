@@ -1,46 +1,20 @@
-import {
-    MigrationInterface,
-    QueryRunner,
-    Table,
-} from "typeorm"
+import { Knex } from 'knex'
 
 const tableName = 'users'
+export async function up(knex: Knex): Promise<void> {
+    await knex.schema.createTable(tableName, (table) => {
+        table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
+        table.string('user').notNullable()
+        table.string('password').notNullable()
+        table.string('email').notNullable()
+        table.timestamps({
+            defaultToNow: true,
+            useCamelCase: false,
+            useTimestamps: false,
+        })
+    })
+}
 
-export class QuestionRefactoringTIMESTAMP implements MigrationInterface {
-    async up(queryRunner: QueryRunner): Promise<void> {
-        // await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
-
-        await queryRunner.createTable(
-            new Table({
-                name: tableName,
-                columns: [
-                    {
-                        name: "id",
-                        type: "uuid",
-                        isUnique: true,
-                        isPrimary: true,
-                        generationStrategy: 'uuid',
-                        default: 'uuid_generate_v4()'
-                    },
-                    {
-                        name: "user",
-                        type: "varchar"
-                    },
-                    {
-                        name: "password",
-                        type: "varchar"
-                    },
-                    {
-                        name: "email",
-                        type: "varchar",
-                    },
-                ],
-            }),
-            true,
-        )
-    }
-
-    async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable(tableName)
-    }
+export async function down(knex: Knex): Promise<void> {
+    await knex.schema.dropTableIfExists(tableName)
 }
