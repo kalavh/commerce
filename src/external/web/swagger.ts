@@ -44,8 +44,8 @@ export async function setupSwagger(
             },
         },
         info: {
-            description: 'ECCOMECE TESTS',
             title: 'ECCOMERCE API',
+            description: 'This project is amateur eccommerce',
             version: '1.0.0',
         },
     })

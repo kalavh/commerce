@@ -14,7 +14,6 @@ app.use(express.json());
 useContainer(new TsyringeAdapter(container))
 setupSwagger(app)
 
-
 app.on('error', (error) => console.log({ error }))
 app.listen(settings.PORT, () => {
   console.log(`App is running on port ${settings.PORT}`);
