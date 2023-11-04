@@ -1,4 +1,4 @@
-export class InventoryEntity {
+export class DiscountEntity {
     id: string
 
     name: string
