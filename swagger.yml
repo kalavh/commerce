@@ -1,0 +1,130 @@
+components:
+  schemas:
+    CreateProductSchema:
+      properties:
+        name:
+          type: string
+        descr:
+          type: string
+        categoryId:
+          format: uuid
+          type: string
+        inventoryId:
+          format: uuid
+          type: string
+        price:
+          type: number
+        sku:
+          type: string
+        discountId:
+          type: number
+      type: object
+      required:
+        - name
+        - descr
+        - categoryId
+        - inventoryId
+        - price
+        - sku
+        - discountId
+    CreateUserSchema:
+      properties:
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          format: uuid
+          type: string
+        password:
+          format: uuid
+          type: string
+        telephone:
+          type: number
+        email:
+          type: string
+        discountId:
+          type: number
+      type: object
+      required:
+        - username
+        - firstName
+        - lastName
+        - password
+        - telephone
+        - email
+        - discountId
+  securitySchemes:
+    bearerAuth:
+      scheme: bearer
+      type: http
+info:
+  title: ECCOMERCE API
+  version: 1.0.0
+  description: This project is amateur eccommerce
+openapi: 3.0.0
+paths:
+  /health/:
+    get:
+      operationId: Health.getHealth
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: Server Health
+      tags:
+        - Health
+      description: This is to check if server is running
+  /product:
+    get:
+      operationId: Health.listProducts
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: List products
+      tags:
+        - Health
+      description: This route list products
+  /product/:
+    post:
+      operationId: Health.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProductSchema"
+        description: CreateProductSchema
+        required: false
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: Create
+      tags:
+        - Health
+  /user/:
+    post:
+      operationId: Health.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserSchema"
+        description: CreateUserSchema
+        required: false
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: Create user
+      tags:
+        - Health
+      description: Create user
+servers:
+  - url: http://localhost:5000/
+    description: Development
