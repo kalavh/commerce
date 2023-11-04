@@ -27,6 +27,33 @@ components:
         - price
         - sku
         - discountId
+    CreateUserSchema:
+      properties:
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          format: uuid
+          type: string
+        password:
+          format: uuid
+          type: string
+        telephone:
+          type: number
+        email:
+          type: string
+        discountId:
+          type: number
+      type: object
+      required:
+        - username
+        - firstName
+        - lastName
+        - password
+        - telephone
+        - email
+        - discountId
   securitySchemes:
     bearerAuth:
       scheme: bearer
@@ -49,16 +76,9 @@ paths:
       tags:
         - Health
       description: This is to check if server is running
-  "/product/{id}":
+  /product:
     get:
       operationId: Health.listProducts
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            pattern: "[^\\/#\\?]+?"
-            type: string
       responses:
         "200":
           content:
@@ -86,6 +106,25 @@ paths:
       summary: Create
       tags:
         - Health
+  /user/:
+    post:
+      operationId: Health.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserSchema"
+        description: CreateUserSchema
+        required: false
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: Create user
+      tags:
+        - Health
+      description: Create user
 servers:
   - url: http://localhost:5000/
     description: Development

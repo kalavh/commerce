@@ -1,7 +1,13 @@
 export class UserEntity {
     id: string
 
-    user: string
+    username: string
+
+    firstName: string
+
+    lastName: string
+
+    telephone: number
 
     password: string
 

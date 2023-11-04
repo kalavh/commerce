@@ -18,7 +18,7 @@ export class Health {
         summary: 'List products',
         description: 'This route list products'
     })
-    @Get('/:id')
+    @Get()
     listProducts() {
         return this.getProductUseCase.execute()
     }

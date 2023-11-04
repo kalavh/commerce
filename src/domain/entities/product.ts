@@ -25,5 +25,4 @@ export class ProductEntity {
     category?: CategoryEntity
 
     inventory?: InventoryEntity
-
 }

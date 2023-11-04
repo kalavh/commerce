@@ -54,7 +54,7 @@ export class DatabaseConfiguration {
         this.setGlobal()
     }
 
-    async setGlobal() {
+    private setGlobal() {
         this.knexConnection = knex(this.knexConfigurations)
         Model.knex(this.knexConnection);
     }
@@ -64,7 +64,7 @@ export class DatabaseConfiguration {
     }
 
     async migrate() {
-        console.info('Running Migrations', this.knexConnection)
+        console.info('Running Migrations')
         const migrated = await this.knexConnection.migrate.latest()
         if (!migrated.length) {
             console.info('There are no migrations to running')
@@ -81,20 +81,9 @@ export class DatabaseConfiguration {
 
     async rollback() {
         console.info('Running Rollback')
-        this.checkConnection()
         const rollbacked = await this.knexConnection.migrate.rollback()
         if (!rollbacked.length) {
             console.info('There are no roolback to running')
-        }
-    }
-
-    removeConnection() {
-        this.knexConnection.destroy()
-    }
-
-    private checkConnection() {
-        if (!this.knexConnection) {
-            throw new Error('You destroyed knexConnection')
         }
     }
 }
