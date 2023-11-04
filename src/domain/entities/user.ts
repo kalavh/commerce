@@ -6,4 +6,8 @@ export class UserEntity {
     password: string
 
     email: string
+
+    createdAt: Date
+
+    deletedAt: Date
 }
