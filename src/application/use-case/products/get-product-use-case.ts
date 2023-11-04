@@ -1,4 +1,7 @@
-export class GetProductsUseCase {
+import { injectable } from "tsyringe";
+
+@injectable()
+export class GetProductUseCase {
     constructor(
     ) { }
 
