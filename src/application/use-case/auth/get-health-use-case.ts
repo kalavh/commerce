@@ -1,4 +1,4 @@
-export class GetHealth {
+export class GetHealthUseCase {
   constructor(
   ) { }
 

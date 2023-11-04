@@ -1,13 +1,13 @@
-import { GetProducts } from "@/src/application/use-case/products/get-products";
 import { Get, JsonController } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { injectable } from 'tsyringe'
+import { GetProductsUseCase } from "../../application/use-case/products/get-products-use-case";
 
 @JsonController('/product')
 @injectable()
 export class Health {
     constructor(
-        private readonly getProducts: GetProducts
+        private readonly getProductsUseCase: GetProductsUseCase
     ) { }
 
     @OpenAPI({
@@ -16,7 +16,7 @@ export class Health {
     })
     @Get('/')
     listProducts() {
-        return this.getProducts.execute()
+        return this.getProductsUseCase.execute()
     }
 
 }

@@ -2,6 +2,7 @@ import { join } from "path";
 import settings from "../config/settings";
 import knex, { Knex } from "knex";
 import { knexSnakeCaseMappers, KnexMappers, Identity, initialize } from "objection";
+import { injectable } from "tsyringe";
 
 type connection = & Knex.PgConnectionConfig & {
     entities: string[]
@@ -22,7 +23,8 @@ type KnexConfigurations = {
     postProcessResponse(response: any): any;
 }
 
-export class DatabaseConfigurations {
+@injectable()
+export class DatabaseConfiguration {
     private readonly knexConfigurations: KnexConfigurations
     private knex: Knex
     constructor() {
@@ -48,16 +50,17 @@ export class DatabaseConfigurations {
             postProcessResponse,
             wrapIdentifier
         }
+        this.knex = knex(this.knexConfigurations)
     }
 
     connection() {
-        this.knex = knex(this.knexConfigurations)
         return this.knex
     }
 
     async migrate() {
         console.info('Running Migrations')
-        const migrated = await this.knex?.migrate.latest()
+        this.checkConnection()
+        const migrated = await this.knex.migrate.latest()
         if (!migrated.length) {
             console.info('There are no migrations to running')
         }
@@ -65,6 +68,7 @@ export class DatabaseConfigurations {
 
     async seed() {
         console.info('Running Migrations')
+        this.checkConnection()
         const seeded = await this.knex.seed.run()
         if (!seeded.length) {
             console.info('There are no seeds to running')
@@ -73,9 +77,20 @@ export class DatabaseConfigurations {
 
     async rollback() {
         console.info('Running Migrations')
+        this.checkConnection()
         const rollbacked = await this.knex.migrate.rollback()
         if (!rollbacked.length) {
             console.info('There are no roolback to running')
+        }
+    }
+
+    removeConnection() {
+        this.knex.destroy()
+    }
+
+    private checkConnection() {
+        if (!this.knex) {
+            throw new Error('You destroyed knexConnection')
         }
     }
 }

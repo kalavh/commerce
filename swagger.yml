@@ -1,0 +1,39 @@
+components:
+  schemas: {}
+  securitySchemes:
+    bearerAuth:
+      scheme: bearer
+      type: http
+info:
+  title: ECCOMERCE API
+  version: 1.0.0
+  description: This project is amateur eccommerce
+openapi: 3.0.0
+paths:
+  /health/:
+    get:
+      operationId: Health.getHealth
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: Server Health
+      tags:
+        - Health
+      description: This is to check if server is running
+  /product/:
+    get:
+      operationId: Health.listProducts
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: List products
+      tags:
+        - Health
+      description: This route list products
+servers:
+  - url: http://localhost:5000/
+    description: Development

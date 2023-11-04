@@ -1,4 +1,4 @@
-export class GetProducts {
+export class GetProductsUseCase {
     constructor(
     ) { }
 

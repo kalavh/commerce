@@ -12,11 +12,6 @@ module.exports = {
         loader: "swc-loader",
 
       },
-      resolve: {
-        alias: {
-          '@src': path.resolve(__dirname, 'src'),
-        },
-      },
     },
   ]
 };

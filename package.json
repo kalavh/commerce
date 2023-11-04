@@ -6,7 +6,7 @@
   "scripts": {
     "test": "true",
     "migrate": "true",
-    "start": "nodemon  -r @swc-node/register ./src/infra/web/app.ts",
+    "start": "nodemon  -r @swc-node/register ./src/external/web/app.ts",
     "typeorm": "typeorm-ts-node-esm"
   },
   "author": "",
