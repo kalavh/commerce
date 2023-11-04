@@ -1,5 +1,6 @@
 import { Transaction } from 'objection'
-import { UserModel } from '@/src/external/database/models/user'
+import { UserModel } from '../models/user'
+
 
 export class UserRepository {
     async getUserByEmail({ email, trx }: { email: string, trx?: Transaction }) {
