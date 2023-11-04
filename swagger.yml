@@ -1,5 +1,32 @@
 components:
-  schemas: {}
+  schemas:
+    CreateProductSchema:
+      properties:
+        name:
+          type: string
+        descr:
+          type: string
+        categoryId:
+          format: uuid
+          type: string
+        inventoryId:
+          format: uuid
+          type: string
+        price:
+          type: number
+        sku:
+          type: string
+        discountId:
+          type: number
+      type: object
+      required:
+        - name
+        - descr
+        - categoryId
+        - inventoryId
+        - price
+        - sku
+        - discountId
   securitySchemes:
     bearerAuth:
       scheme: bearer
@@ -22,9 +49,16 @@ paths:
       tags:
         - Health
       description: This is to check if server is running
-  /product/:
+  "/product/{id}":
     get:
       operationId: Health.listProducts
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            pattern: "[^\\/#\\?]+?"
+            type: string
       responses:
         "200":
           content:
@@ -34,6 +68,24 @@ paths:
       tags:
         - Health
       description: This route list products
+  /product/:
+    post:
+      operationId: Health.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProductSchema"
+        description: CreateProductSchema
+        required: false
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: Create
+      tags:
+        - Health
 servers:
   - url: http://localhost:5000/
     description: Development

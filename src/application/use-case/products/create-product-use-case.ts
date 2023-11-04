@@ -2,6 +2,7 @@ import { injectable } from "tsyringe";
 import { ProductEntity } from "../../../domain/entities/product";
 import { ProductRepository } from "../../../external/database/repository/product";
 import { Transaction } from "objection";
+import { RequiredFieldsOnly } from "../../../../@types";
 
 export type createProduct = RequiredFieldsOnly<Omit<ProductEntity, 'id' | 'createdAt' | 'deletedAt'>>
 

@@ -1,46 +1,47 @@
 import { join } from "path";
 import settings from "../config/settings";
 import knex, { Knex } from "knex";
-import { knexSnakeCaseMappers, KnexMappers, Identity, initialize } from "objection";
+import { knexSnakeCaseMappers, KnexMappers, Identity, Model } from "objection";
 import { injectable } from "tsyringe";
 
-type connection = & Knex.PgConnectionConfig & {
-    entities: string[]
-    migrations: string[]
-    migrationsTableName: string
-}
-
 type KnexConfigurations = {
-    database: 'pg' | 'sqlite'
+    client: 'postgres' | 'sqlite3'
     debug: boolean
-    connection: connection
+    connection: Knex.PgConnectionConfig
     pool: {
         idleTimeoutMillis: number
         min: number
         max: number
     }
-    wrapIdentifier(identifier: string, origWrap: Identity<string>): string
-    postProcessResponse(response: any): any;
+    entities: { directory: string[] },
+    migrations: { directory: string[] }
+    seeds?: { directory: string[] }
+    wrapIdentifier?(identifier: string, origWrap: Identity<string>): string
+    postProcessResponse?(response: any): any;
 }
 
 @injectable()
 export class DatabaseConfiguration {
     private readonly knexConfigurations: KnexConfigurations
-    private knex: Knex
+    private knexConnection: Knex
     constructor() {
         const { postProcessResponse, wrapIdentifier } = knexSnakeCaseMappers() as KnexMappers
         this.knexConfigurations = {
-            database: 'pg',
+            client: settings.database.DRIVER,
             debug: false,
             connection: {
-                host: settings.HOST,
-                port: 3306,
-                user: settings.DATABASE_USER,
-                password: settings.DATABASE_PASSWORD,
-                database: settings.DATABASE_NAME,
-                entities: [join(__dirname, './models/*')],
-                migrations: [join(__dirname, './migrations/*')],
-                migrationsTableName: "custom_migration_table",
+                host: settings.database.HOST,
+                port: settings.database.PORT,
+                user: settings.database.USER,
+                password: settings.database.PASSWORD,
+                database: settings.database.DB_NAME,
+            },
+            entities: { directory: [join(__dirname, './models')] },
+            migrations: {
+                directory: [join(__dirname, './migrations')]
+            },
+            seeds: {
+                directory: [join(__dirname, './seeds')]
             },
             pool: {
                 idleTimeoutMillis: 35000,
@@ -50,46 +51,49 @@ export class DatabaseConfiguration {
             postProcessResponse,
             wrapIdentifier
         }
-        this.knex = knex(this.knexConfigurations)
+        this.setGlobal()
+    }
+
+    async setGlobal() {
+        this.knexConnection = knex(this.knexConfigurations)
+        Model.knex(this.knexConnection);
     }
 
     connection() {
-        return this.knex
+        return this.connection
     }
 
     async migrate() {
-        console.info('Running Migrations')
-        this.checkConnection()
-        const migrated = await this.knex.migrate.latest()
+        console.info('Running Migrations', this.knexConnection)
+        const migrated = await this.knexConnection.migrate.latest()
         if (!migrated.length) {
             console.info('There are no migrations to running')
         }
     }
 
     async seed() {
-        console.info('Running Migrations')
-        this.checkConnection()
-        const seeded = await this.knex.seed.run()
+        console.info('Running Seeds')
+        const seeded = await this.knexConnection.seed.run()
         if (!seeded.length) {
             console.info('There are no seeds to running')
         }
     }
 
     async rollback() {
-        console.info('Running Migrations')
+        console.info('Running Rollback')
         this.checkConnection()
-        const rollbacked = await this.knex.migrate.rollback()
+        const rollbacked = await this.knexConnection.migrate.rollback()
         if (!rollbacked.length) {
             console.info('There are no roolback to running')
         }
     }
 
     removeConnection() {
-        this.knex.destroy()
+        this.knexConnection.destroy()
     }
 
     private checkConnection() {
-        if (!this.knex) {
+        if (!this.knexConnection) {
             throw new Error('You destroyed knexConnection')
         }
     }
