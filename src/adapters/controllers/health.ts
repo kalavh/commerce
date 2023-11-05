@@ -1,7 +1,7 @@
 import { Get, JsonController } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { injectable } from 'tsyringe'
-import { GetHealthUseCase } from "../../application/use-case/auth/get-health-use-case";
+import { GetHealthUseCase } from "../../application/use-case/health/get-health-use-case";
 
 @JsonController('/health')
 @injectable()
