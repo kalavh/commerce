@@ -1,11 +1,11 @@
-import { Transaction } from 'objection'
 import { ProductModel } from '../models/product'
-import { createProduct } from '../../../application/use-case/products/create-product-use-case'
+import { ProductEntity } from '../../../domain/entities/product'
+import { DefaultCreateUseCaseType } from '../../../application/types/default-create-use-case'
 
 export class ProductRepository {
-    async createProduct({ product, trx }: { product: createProduct, trx?: Transaction }) {
+    async insertProduct({ data, trx }: DefaultCreateUseCaseType<ProductEntity>) {
         return ProductModel
             .query(trx)
-            .insertAndFetch(product)
+            .insertAndFetch(data)
     }
 }

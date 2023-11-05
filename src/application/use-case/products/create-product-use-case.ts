@@ -1,17 +1,14 @@
 import { injectable } from "tsyringe";
-import { ProductEntity } from "../../../domain/entities/product";
 import { ProductRepository } from "../../../external/database/repository/product";
-import { Transaction } from "objection";
-import { RequiredFieldsOnly } from "../../../../@types";
-
-export type createProduct = RequiredFieldsOnly<Omit<ProductEntity, 'id' | 'createdAt' | 'deletedAt'>>
+import { ProductEntity } from "../../../domain/entities/product";
+import { DefaultCreateUseCaseType } from "../../types/default-create-use-case";
 
 @injectable()
 export class CreateProductUseCase {
     constructor(private readonly productRepository: ProductRepository
     ) { }
 
-    execute(product: createProduct, trx?: Transaction) {
-        return this.productRepository.createProduct({ product, trx })
+    execute({ data, trx }: DefaultCreateUseCaseType<ProductEntity>) {
+        return this.productRepository.insertProduct({ data, trx })
     }
 }
