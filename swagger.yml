@@ -1,5 +1,26 @@
 components:
   schemas:
+    UserSerializer:
+      properties:
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          format: uuid
+          type: string
+        telephone:
+          format: uuid
+          type: string
+        email:
+          type: string
+      type: object
+      required:
+        - username
+        - firstName
+        - lastName
+        - telephone
+        - email
     CreateProductSchema:
       properties:
         name:
@@ -54,6 +75,21 @@ components:
         - telephone
         - email
         - discountId
+    ListProductParamsSchema:
+      properties:
+        id:
+          type: string
+      type: object
+    LoginSchema:
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      type: object
+      required:
+        - username
+        - password
   securitySchemes:
     bearerAuth:
       scheme: bearer
@@ -103,10 +139,11 @@ paths:
           content:
             application/json: {}
           description: Successful response
-      summary: Create
+      summary: Create products
       tags:
         - Health
-  /user/:
+      description: This route create a product
+  //register:
     post:
       operationId: Health.create
       requestBody:
@@ -119,12 +156,35 @@ paths:
       responses:
         "200":
           content:
-            application/json: {}
-          description: Successful response
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSerializer"
+          description: ""
       summary: Create user
       tags:
         - Health
       description: Create user
+  //login:
+    post:
+      operationId: Health.login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginSchema"
+        description: LoginSchema
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSerializer"
+          description: ""
+      summary: Login
+      tags:
+        - Health
+      description: Login route
 servers:
   - url: http://localhost:5000/
     description: Development

@@ -1,7 +1,7 @@
 import { injectable } from "tsyringe";
 import { ProductRepository } from "../../../external/database/repository/product";
 import { ProductEntity } from "../../../domain/entities/product";
-import { DefaultCreateUseCaseType } from "../../types/default-create-use-case";
+import { DefaultCreateUseCaseType } from "../../types/default-use-case";
 
 @injectable()
 export class CreateProductUseCase {
