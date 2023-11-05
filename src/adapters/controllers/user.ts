@@ -5,21 +5,34 @@ import { Serializer, StrictBody } from "../../external/web/validator";
 import { CreateUserSchema } from "../schemas/user/create-user-schema";
 import { CreateUserUseCase } from "../../application/use-case/user/create-user-use-case";
 import { UserSerializer } from "../serializers/user";
+import { LoginSchema } from "../schemas/auth/login-schema";
+import { LoginUseCase } from "../../application/use-case/user/login-use-case";
 
-@JsonController('/user')
+@JsonController('/')
 @injectable()
 export class Health {
     constructor(
-        private readonly createUserUseCase: CreateUserUseCase
+        private readonly createUserUseCase: CreateUserUseCase,
+        private readonly loginUseCase: LoginUseCase
     ) { }
 
     @OpenAPI({
         summary: 'Create user',
         description: 'Create user'
     })
-    @Post('/')
+    @Post('/register')
     @Serializer(UserSerializer)
     create(@StrictBody() data: CreateUserSchema) {
         return this.createUserUseCase.execute({ data })
+    }
+
+    @OpenAPI({
+        summary: 'Login',
+        description: 'Login route'
+    })
+    @Post('/login')
+    @Serializer(UserSerializer)
+    login(@StrictBody() filters: LoginSchema) {
+        return this.loginUseCase.execute({ filters })
     }
 }
