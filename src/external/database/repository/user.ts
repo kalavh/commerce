@@ -1,6 +1,8 @@
 import { Transaction } from 'objection'
 import { UserModel } from '../models/user'
 import { createUser } from '../../../application/use-case/user/create-user-use-case'
+import { LoginType } from '../../../application/types/login-use-case'
+import { DefaultCreateUseCaseType, DefaultFilterUseCaseType } from '../../../application/types/default-use-case'
 
 export class UserRepository {
     async getUserByEmail({ email, trx }: { email: string, trx?: Transaction }) {
@@ -10,9 +12,16 @@ export class UserRepository {
             .first()
     }
 
-    async createUser({ user, trx }: { user: createUser, trx?: Transaction }) {
+    async createUser({ data, trx }: DefaultCreateUseCaseType<createUser>) {
         return UserModel
             .query(trx)
-            .insertAndFetch(user)
+            .insertAndFetch(data)
+    }
+
+    async login({ filters, trx }: DefaultFilterUseCaseType<LoginType>) {
+        return UserModel
+            .query(trx)
+            .where(filters)
+            .first()
     }
 }

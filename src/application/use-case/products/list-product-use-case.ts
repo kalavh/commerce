@@ -1,7 +1,7 @@
 import { injectable } from "tsyringe";
 import { ProductRepository } from "../../../external/database/repository/product";
-import { DefaultListUseCaseType } from "../../types/default-list-use-case";
 import { FilterProductType } from "../../types/filter-product-use-case";
+import { DefaultListUseCaseType } from "../../types/default-use-case";
 
 @injectable()
 export class ListProductUseCase {

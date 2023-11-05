@@ -2,15 +2,15 @@ import { JsonController, Post } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { injectable } from 'tsyringe'
 import { Serializer, StrictBody } from "../../external/web/validator";
-import { CreateUserSchema } from "../schemas/user/create-user-schema";
-import { CreateUserUseCase } from "../../application/use-case/user/create-user-use-case";
+import { LoginSchema } from "../schemas/auth/login-schema";
+import { LoginUseCase } from "../../application/use-case/user/login-use-case";
 import { UserSerializer } from "../serializers/user";
 
-@JsonController('/user')
+@JsonController('/login')
 @injectable()
-export class Health {
+export class Auth {
     constructor(
-        private readonly createUserUseCase: CreateUserUseCase
+        private readonly loginUseCase: LoginUseCase
     ) { }
 
     @OpenAPI({
@@ -19,7 +19,7 @@ export class Health {
     })
     @Post('/')
     @Serializer(UserSerializer)
-    create(@StrictBody() data: CreateUserSchema) {
-        return this.createUserUseCase.execute({ data })
+    login(@StrictBody() filters: LoginSchema) {
+        return this.loginUseCase.execute({ filters })
     }
 }
