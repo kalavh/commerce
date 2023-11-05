@@ -1,10 +1,10 @@
 
 import 'reflect-metadata'
-import { DatabaseConfiguration } from './configuration'
+import { DatabaseConfiguration } from '../database/configuration'
 
-async function startup() {
+async function databaseStartup() {
     const databaseConfiguration = new DatabaseConfiguration()
     databaseConfiguration.migrate()
 }
 
-export = startup()
+export = databaseStartup()

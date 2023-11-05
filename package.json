@@ -7,7 +7,7 @@
     "test": "true",
     "migrate": "true",
     "start": "nodemon -r @swc-node/register ./src/external/web/app.ts",
-    "migration": "node -r @swc-node/register ./src/external/database/startup.ts",
+    "migration": "node -r @swc-node/register ./src/external/handlers/database-startup.ts",
     "typeorm": "typeorm-ts-node-esm"
   },
   "author": "",
