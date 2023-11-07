@@ -3,9 +3,8 @@ import { DatabaseConfiguration } from '../database/configuration'
 import settings from '../config/settings'
 import { EnvEnum } from '../config/env-enum'
 import { logger } from '../utils/logger'
-import { Model } from 'objection'
 
-async function databaseStartup() {
+export async function databaseStartup() {
     const databaseConfiguration = new DatabaseConfiguration()
 
     logger.info('Startup database')
@@ -14,5 +13,3 @@ async function databaseStartup() {
         databaseConfiguration.seed()
     }
 }
-
-export = databaseStartup

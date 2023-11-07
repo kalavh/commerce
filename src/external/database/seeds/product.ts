@@ -1,8 +1,14 @@
 import { Knex } from "knex";
 import { UserModel } from "../models/user";
 import { logger } from "../../utils/logger";
+import { hasMixin } from "ts-mixer";
+import { UserEntity } from "../../../domain/entities/user";
+import { Model } from "objection";
 
 export async function seed(knex: Knex) {
-    logger.info('START SEED')
-    const teste = await UserModel.query()
+    /*     const teste = await UserModel.query()
+            .insert({
+                password: 'teste'
+            })
+     */
 }

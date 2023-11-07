@@ -5,7 +5,7 @@ import { useContainer } from 'class-validator';
 import { TsyringeAdapter } from '../config/container';
 import { container } from 'tsyringe';
 import { setupSwagger } from './swagger';
-import databaseStartup from '../handlers/database-startup';
+import { databaseStartup } from '../handlers/database-startup';
 import { logger } from '../utils/logger';
 import { setupControllers } from './controllers';
 
