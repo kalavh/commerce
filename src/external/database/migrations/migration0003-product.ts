@@ -22,7 +22,7 @@ export async function up(knex: Knex): Promise<void> {
             .index()
         table.uuid('discount_id')
             .references('discounts.id')
-            .notNullable()
+            .nullable()
             .onDelete('CASCADE')
             .index()
         table.timestamps({

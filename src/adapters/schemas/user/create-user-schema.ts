@@ -13,12 +13,9 @@ export class CreateUserSchema {
     @IsUUID()
     password: string
 
-    @IsNumber()
+    @IsString()
     telephone: string
 
     @IsString()
     email: string
-
-    @IsNumber()
-    discountId: number
 }

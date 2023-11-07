@@ -16,7 +16,7 @@ export class ProductEntity {
 
     sku: string
 
-    discountId: number
+    discountId?: string
 
     createdAt: Date
 

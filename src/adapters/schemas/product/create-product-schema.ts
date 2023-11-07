@@ -19,6 +19,6 @@ export class CreateProductSchema {
     @IsString()
     sku: string
 
-    @IsNumber()
-    discountId: number
+    @IsUUID()
+    discountId: string
 }
