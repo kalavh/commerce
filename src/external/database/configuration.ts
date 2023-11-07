@@ -60,7 +60,7 @@ export class DatabaseConfiguration {
         Model.knex(this.knex)
     }
 
-    connection() {
+    knexInstance() {
         return this.knex
     }
 

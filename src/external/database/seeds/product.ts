@@ -13,10 +13,9 @@ export async function seed() {
         email: 'admin@admin.com',
         telephone: '40028922'
     }
-    // 'admin@admin.com', 'Super', 'Admin', 'teste', 40028922, 'admin' 
+
     await UserModel.query()
         .insert(user)
         .debug()
 
-    console.log(await UserModel.query())
 }
