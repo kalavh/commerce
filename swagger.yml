@@ -63,6 +63,8 @@ components:
           type: string
         telephone:
           type: string
+        mobile:
+          type: string
         email:
           type: string
       type: object
@@ -72,6 +74,7 @@ components:
         - lastName
         - password
         - telephone
+        - mobile
         - email
     ListProductParamsSchema:
       properties:

@@ -11,14 +11,11 @@ export async function up(knex: Knex): Promise<void> {
             .notNullable()
             .onDelete('CASCADE')
             .index()
-
         table.string('address_line1').notNullable()
-        table.string('addres_line2').notNullable()
+        table.string('address_line2').notNullable()
         table.string('city').notNullable()
         table.string('postal_code').notNullable()
         table.string('country').notNullable()
-        table.string('telephone').notNullable()
-        table.string('mobile').notNullable()
         table.timestamps({
             defaultToNow: true,
             useCamelCase: false,

@@ -17,5 +17,8 @@ export class CreateUserSchema {
     telephone: string
 
     @IsString()
+    mobile: string
+
+    @IsString()
     email: string
 }

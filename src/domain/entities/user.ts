@@ -9,6 +9,8 @@ export class UserEntity {
 
     telephone: string
 
+    mobile: string
+
     password: string
 
     email: string

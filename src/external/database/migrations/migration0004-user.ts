@@ -11,6 +11,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('password').notNullable()
         table.string('email').notNullable()
         table.string('telephone').notNullable()
+        table.string('mobile').notNullable()
         table.timestamps({
             defaultToNow: true,
             useCamelCase: false,

@@ -1,6 +1,3 @@
-import { CategoryEntity } from "./category"
-import { InventoryEntity } from "./inventory"
-
 export class UserAddressEntity {
     id: string
 
@@ -12,13 +9,9 @@ export class UserAddressEntity {
 
     city: string
 
-    postal_code: string
+    postalCode: string
 
     country: string
-
-    telephone: string
-
-    mobile: string
 
     createdAt: Date
 
