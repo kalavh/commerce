@@ -5,6 +5,6 @@ settings.staticsStrategy = 'proxy';
 
 export class UserPaymentModel extends Mixin(UserPaymentEntity, Model) {
     static get tableName() {
-        return 'users'
+        return 'users_payments'
     }
 }

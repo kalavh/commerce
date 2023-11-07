@@ -7,7 +7,7 @@ export class UserEntity {
 
     lastName: string
 
-    telephone: number
+    telephone: string
 
     password: string
 

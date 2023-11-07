@@ -1,13 +1,13 @@
 
 import { Knex } from 'knex'
 
-const tableName = 'user_payment'
+const tableName = 'users_payments'
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(tableName, (table) => {
         table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
         table
             .uuid('user_id')
-            .references('user.id')
+            .references('users.id')
             .notNullable()
             .onDelete('CASCADE')
             .index()

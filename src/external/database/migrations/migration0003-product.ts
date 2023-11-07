@@ -1,6 +1,6 @@
 import { Knex } from 'knex'
 
-const tableName = 'product'
+const tableName = 'products'
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(tableName, (table) => {
         table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
@@ -10,18 +10,18 @@ export async function up(knex: Knex): Promise<void> {
         table.decimal('price')
         table
             .uuid('category_id')
-            .references('product_category.id')
+            .references('products_category.id')
             .notNullable()
             .onDelete('CASCADE')
             .index()
         table
             .uuid('inventory_id')
-            .references('product_inventory.id')
+            .references('products_inventory.id')
             .notNullable()
             .onDelete('CASCADE')
             .index()
         table.uuid('discount_id')
-            .references('discount.id')
+            .references('discounts.id')
             .notNullable()
             .onDelete('CASCADE')
             .index()

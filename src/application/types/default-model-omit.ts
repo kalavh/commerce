@@ -1,0 +1,1 @@
+export type DefaultModelOmit<D> = Omit<D, 'id' | 'createdAt' | 'deletedAt'>

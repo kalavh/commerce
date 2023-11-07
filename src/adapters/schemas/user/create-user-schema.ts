@@ -14,7 +14,7 @@ export class CreateUserSchema {
     password: string
 
     @IsNumber()
-    telephone: number
+    telephone: string
 
     @IsString()
     email: string

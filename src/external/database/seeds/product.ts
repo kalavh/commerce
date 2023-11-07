@@ -1,14 +1,22 @@
-import { Knex } from "knex";
 import { UserModel } from "../models/user";
 import { logger } from "../../utils/logger";
-import { hasMixin } from "ts-mixer";
 import { UserEntity } from "../../../domain/entities/user";
-import { Model } from "objection";
+import { DefaultModelOmit } from "../../../application/types/default-model-omit";
 
-export async function seed(knex: Knex) {
-    /*     const teste = await UserModel.query()
-            .insert({
-                password: 'teste'
-            })
-     */
+export async function seed() {
+    logger.info('Start Seeeds')
+    const user: DefaultModelOmit<UserEntity> = {
+        username: 'admin',
+        password: 'teste',
+        firstName: 'Super',
+        lastName: 'Admin',
+        email: 'admin@admin.com',
+        telephone: '40028922'
+    }
+    // 'admin@admin.com', 'Super', 'Admin', 'teste', 40028922, 'admin' 
+    await UserModel.query()
+        .insert(user)
+        .debug()
+
+    console.log(await UserModel.query())
 }

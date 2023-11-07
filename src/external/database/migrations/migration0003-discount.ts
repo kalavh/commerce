@@ -1,6 +1,6 @@
 import { Knex } from 'knex'
 
-const tableName = 'discount'
+const tableName = 'discounts'
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(tableName, (table) => {
         table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))

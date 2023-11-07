@@ -8,8 +8,6 @@ export async function databaseStartup() {
     const databaseConfiguration = new DatabaseConfiguration()
 
     logger.info('Startup database')
-    if (settings.NODE_ENV === EnvEnum.DEV) {
-        databaseConfiguration.migrate()
-        databaseConfiguration.seed()
-    }
+    await databaseConfiguration.migrate()
+    await databaseConfiguration.seed()
 }

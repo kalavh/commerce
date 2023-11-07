@@ -5,6 +5,6 @@ settings.staticsStrategy = 'proxy';
 
 export class CategoryModel extends Mixin(CategoryEntity, Model) {
     static get tableName() {
-        return 'product_category'
+        return 'products_category'
     }
 }

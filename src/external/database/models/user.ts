@@ -3,7 +3,7 @@ import { Model } from 'objection'
 import { Mixin, settings } from "ts-mixer";
 settings.staticsStrategy = 'proxy';
 
-export class UserModel extends Mixin(UserEntity, Model) {
+export class UserModel extends Model {
     static get tableName() {
         return 'users'
     }

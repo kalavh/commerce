@@ -6,6 +6,6 @@ settings.staticsStrategy = 'proxy';
 
 export class InventoryModel extends Mixin(InventoryEntity, Model) {
     static get tableName() {
-        return 'product_invetory'
+        return 'products_inventory'
     }
 }

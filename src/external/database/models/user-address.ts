@@ -5,6 +5,6 @@ settings.staticsStrategy = 'proxy';
 
 export class UserAddressModel extends Mixin(UserAddressEntity, Model) {
     static get tableName() {
-        return 'users'
+        return 'users_address'
     }
 }
