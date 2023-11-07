@@ -45,5 +45,8 @@ export default {
       }
       return process.env.DATABASE_DRIVER as "postgres" | "sqlite3";
     }
-  }
+  },
+  get LOG_LEVEL(): string {
+    return process.env.LOG_LEVEL || 'silly'
+  },
 };

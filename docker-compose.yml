@@ -10,8 +10,14 @@ services:
       POSTGRES_USER: dev
       POSTGRES_DB: dev
       POSTGRES_PASSWORD: dev
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U dev" ]
+      interval: 30s
+      timeout: 30s
+      retries: 3
     volumes:
       - pgdata:/var/lib/postgresql/data
+    command: postgres -c 'shared_buffers=256MB' -c 'max_connections=2000'
     networks:
       - backend
 
@@ -19,7 +25,7 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-    command: sh -c "npm install && npm run migration && npm run start"
+    command: sh -c "npm install && npm run start"
     build: .
     ports:
       - "8080:80"

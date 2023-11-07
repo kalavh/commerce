@@ -3,6 +3,7 @@ import settings from "../config/settings";
 import knex, { Knex } from "knex";
 import { knexSnakeCaseMappers, KnexMappers, Identity, Model } from "objection";
 import { injectable } from "tsyringe";
+import { logger } from "../utils/logger";
 
 type KnexConfigurations = {
     client: 'postgres' | 'sqlite3'
@@ -23,7 +24,7 @@ type KnexConfigurations = {
 @injectable()
 export class DatabaseConfiguration {
     private readonly knexConfigurations: KnexConfigurations
-    private knexConnection: Knex
+    private knex: Knex
     constructor() {
         const { postProcessResponse, wrapIdentifier } = knexSnakeCaseMappers() as KnexMappers
         this.knexConfigurations = {
@@ -46,7 +47,7 @@ export class DatabaseConfiguration {
             pool: {
                 idleTimeoutMillis: 35000,
                 min: 0,
-                max: 2,
+                max: 20,
             },
             postProcessResponse,
             wrapIdentifier
@@ -55,35 +56,29 @@ export class DatabaseConfiguration {
     }
 
     private setGlobal() {
-        this.knexConnection = knex(this.knexConfigurations)
-        Model.knex(this.knexConnection);
+        this.knex = knex(this.knexConfigurations)
+        Model.knex(this.knex)
     }
 
     connection() {
-        return this.connection
+        return this.knex
     }
 
     async migrate() {
-        console.info('Running Migrations')
-        const migrated = await this.knexConnection.migrate.latest()
-        if (!migrated.length) {
-            console.info('There are no migrations to running')
-        }
+        logger.info('Running Migrations')
+        await this.knex.migrate.latest()
+        logger.info("Migrations were successful!");
     }
 
     async seed() {
-        console.info('Running Seeds')
-        const seeded = await this.knexConnection.seed.run()
-        if (!seeded.length) {
-            console.info('There are no seeds to running')
-        }
+        logger.info('Running Seeds')
+        await this.knex.seed.run()
+        logger.info('Seeds were successful!');
     }
 
     async rollback() {
-        console.info('Running Rollback')
-        const rollbacked = await this.knexConnection.migrate.rollback()
-        if (!rollbacked.length) {
-            console.info('There are no roolback to running')
-        }
+        logger.info('Running Rollback')
+        await this.knex.migrate.rollback()
+        logger.info('Rollback were successful!');
     }
 }
