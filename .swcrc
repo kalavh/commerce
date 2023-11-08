@@ -1,6 +1,6 @@
 {
   "jsc": {
-    "target": "ESNext",
+    "target": "esnext",
     "parser": {
       "syntax": "typescript",
       "tsx": false,
@@ -10,7 +10,6 @@
     "transform": {
       "legacyDecorator": true,
       "decoratorMetadata": true
-    },
-    "baseUrl": "/app"
+    }
   }
 }

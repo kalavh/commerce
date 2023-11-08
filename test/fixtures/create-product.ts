@@ -13,6 +13,7 @@ export function createProduct(fields: Partial<ProductEntity> = {}): ProductEntit
         price: Number(faker.commerce.price()),
         sku: '12314',
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         ...fields,
     }
 }

@@ -20,6 +20,8 @@ export class ProductEntity {
 
     createdAt: string
 
+    updatedAt?: string
+
     deletedAt?: string
 
     category?: CategoryEntity

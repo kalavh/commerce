@@ -2,7 +2,7 @@
   "compilerOptions": {
     "noErrorTruncation": true,
     "module": "NodeNext",
-    "target": "ESNext",
+    "target": "esnext",
     "strict": true,
     "inlineSourceMap": true,
     "strictPropertyInitialization": false,
@@ -31,6 +31,6 @@
     "dist",
     ".vscode/**/*",
     ".idea/**/*",
-    "seeds/data/**/*"
+    "external/database/seeds/*"
   ]
 }

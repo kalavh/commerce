@@ -1,4 +1,5 @@
 export enum EnvEnum {
     DEV = 'development',
-    PROD = 'production'
+    PROD = 'production',
+    TEST = 'test'
 }

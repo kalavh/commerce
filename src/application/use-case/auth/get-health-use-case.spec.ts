@@ -1,7 +1,4 @@
 import { container } from 'tsyringe'
-
-
-import { startDb } from '../../../../test/setup/teste-db'
 import { GetHealthUseCase } from './get-health-use-case'
 
 describe('GetHealthUseCase', () => {
@@ -10,6 +7,6 @@ describe('GetHealthUseCase', () => {
 
         const result = await sut.execute()
 
-        expect(result).toBe({ status: 'Server is running' })
+        expect(result).toEqual({ status: 'Server is running' })
     })
 })

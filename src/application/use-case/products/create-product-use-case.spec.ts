@@ -11,8 +11,7 @@ import { createProduct } from '../../../../test/fixtures/create-product'
 
 describe('GetHealthUseCase', () => {
     test('should get health return', async () => {
-        const db = await startDb()
-
+        await startDb()
         const sut = container.resolve(CreateProductUseCase)
 
         const discount = createDiscount()
@@ -23,6 +22,6 @@ describe('GetHealthUseCase', () => {
         const data = createProduct({ discountId: discount.id, inventoryId: inventory.id })
         const result = await sut.execute({ data })
 
-        expect(result).toBe({ status: 'Server is running' })
+        expect(result).toEqual(data)
     })
 })

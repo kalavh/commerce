@@ -3,7 +3,7 @@ import { Knex } from 'knex'
 const tableName = 'products_inventory'
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(tableName, (table) => {
-        table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
+        table.uuid('id').primary()
         table.integer('quantity').defaultTo(0)
         table.timestamps({
             defaultToNow: true,

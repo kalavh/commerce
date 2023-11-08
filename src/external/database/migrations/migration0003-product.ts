@@ -3,7 +3,7 @@ import { Knex } from 'knex'
 const tableName = 'products'
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(tableName, (table) => {
-        table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
+        table.uuid('id').primary()
         table.string('name').notNullable()
         table.string('sku').notNullable()
         table.text('descr').notNullable()

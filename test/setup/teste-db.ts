@@ -1,19 +1,26 @@
 import knex from "knex"
-import { Model } from "objection"
+import { Model, knexSnakeCaseMappers } from "objection"
+import { join } from "path"
 
-export function startDb() {
+export async function startDb() {
+    const { postProcessResponse, wrapIdentifier } = knexSnakeCaseMappers()
+
     const settings = {
         client: 'sqlite3',
         useNullAsDefault: true,
         connection: {
             filename: ':memory:'
-        }
+        },
+        migrations: {
+            directory: [join(__dirname, '../../src/external/database/migrations')]
+        },
+        postProcessResponse,
+        wrapIdentifier
     }
-
     const knexInstance = knex(settings)
     Model.knex(knexInstance)
 
-    knexInstance.migrate.latest()
+    await knexInstance.migrate.latest()
 
     return knexInstance
 }

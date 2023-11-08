@@ -4,9 +4,8 @@
   "description": "basic commerce",
   "main": "index.js",
   "scripts": {
-    "test": "node --no-compilation-cache --expose-gc ./node_modules/.bin/jest --logHeapUsage --runInBand ",
-    "start": "nodemon -r @swc-node/register ./src/external/web/app.ts",
-    "typeorm": "typeorm-ts-node-esm"
+    "test": "jest",
+    "start": "nodemon -r @swc-node/register ./src/external/web/app.ts"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +32,7 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.23.2",
     "@faker-js/faker": "^8.2.0",
     "@swc-node/register": "^1.6.6",
     "@swc/cli": "^0.1.62",
@@ -50,8 +50,7 @@
     "prettier": "^3.0.3",
     "swc": "^1.0.11",
     "swc-loader": "^0.2.3",
-    "tsconfig-paths-jest": "^0.0.1",
-    "tsconfig-paths-webpack-plugin": "^4.1.0",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.1.6",
     "webpack": "^5.88.2",
     "webpack-node-externals": "^3.0.0"

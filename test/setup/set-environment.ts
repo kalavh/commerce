@@ -3,8 +3,6 @@ import { settings as mixSettings } from 'ts-mixer'
 
 mixSettings.staticsStrategy = 'proxy'
 
-jest.mock('~/src/infra/utils/logger')
-
 const env = {
     env: 'test',
     NODE_ENV: 'test'
