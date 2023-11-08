@@ -18,9 +18,9 @@ export class ProductEntity {
 
     discountId?: string
 
-    createdAt: Date
+    createdAt: string
 
-    deletedAt: Date
+    deletedAt?: string
 
     category?: CategoryEntity
 

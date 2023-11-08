@@ -5,7 +5,7 @@ export class ProductCategoryEntity {
 
     descr: string
 
-    createdAt: Date
+    createdAt?: string
 
-    deletedAt: Date
+    deletedAt?: string
 }

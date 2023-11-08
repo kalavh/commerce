@@ -9,7 +9,7 @@ export class DiscountEntity {
 
     active: boolean
 
-    createdAt: Date
+    createdAt: string
 
-    deletedAt: Date
+    deletedAt?: string
 }

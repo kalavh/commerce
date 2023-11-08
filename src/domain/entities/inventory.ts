@@ -3,7 +3,7 @@ export class InventoryEntity {
 
     quantity: number
 
-    createdAt: Date
+    createdAt?: Date
 
-    deletedAt: Date
+    deletedAt?: Date
 }

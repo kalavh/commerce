@@ -9,6 +9,10 @@ import { InventoryModel } from "../models/inventory";
 import { ProductModel } from "../models/product";
 import { ProductCategoryEntity } from "../../../domain/entities/product-category";
 import { ProductCategoryModel } from "../models/product-category";
+import { createProduct } from "../../../../test/fixtures/create-product";
+import { createDiscount } from "../../../../test/fixtures/create-discounts";
+import { createInventory } from "../../../../test/fixtures/create-inventory";
+import { createProductCategory } from "../../../../test/fixtures/product-category";
 
 export async function seed() {
     logger.info('Start Seeeds')
@@ -19,25 +23,9 @@ export async function seed() {
     const productCategory: DefaultModelOmit<ProductCategoryEntity>[] = []
 
     for (let i = 0; i < 100; i++) {
-        if (faker.datatype.boolean(0.25)) {
-            discounts.push({
-                name: faker.commerce.productAdjective(),
-                descr: faker.word.words(),
-                discountPercent: faker.number.float({ min: 0.01, max: 0.8 }),
-                active: true
-            })
-        }
-
-        if (faker.datatype.boolean()) {
-            productCategory.push({
-                name: faker.commerce.productAdjective(),
-                descr: faker.commerce.productMaterial(),
-            })
-        }
-
-        inventories.push({
-            quantity: faker.number.int({ max: 1000 })
-        })
+        if (faker.datatype.boolean(0.25)) discounts.push(createDiscount())
+        if (faker.datatype.boolean()) productCategory.push(createProductCategory())
+        inventories.push(createInventory())
     }
 
     const discountQuery = await DiscountModel.query().insertAndFetch(discounts)
@@ -45,17 +33,12 @@ export async function seed() {
     const productCategoryQuery = await ProductCategoryModel.query().insertAndFetch(productCategory)
 
     for (let inv of iventoryQuery) {
-        products.push({
-            name: faker.commerce.productName(),
-            descr: faker.commerce.productDescription(),
+        products.push(createProduct({
+            discountId: faker.datatype.boolean(0.25) ? faker.helpers.arrayElement(discountQuery).id : undefined,
             categoryId: faker.helpers.arrayElement(productCategoryQuery).id,
-            inventoryId: inv.id,
-            price: Number(faker.commerce.price()),
-            sku: faker.vehicle.manufacturer(),
-            discountId: faker.datatype.boolean(0.25) ? faker.helpers.arrayElement(discountQuery).id : undefined
-        })
+            inventoryId: inv.id
+        }))
     }
 
     await ProductModel.query().insert(products)
-
 }
