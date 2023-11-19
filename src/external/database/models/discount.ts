@@ -8,4 +8,8 @@ export class DiscountModel extends Mixin(DiscountEntity, Model) {
     static get tableName() {
         return 'discounts'
     }
+
+    $beforeInsert() {
+        this.id = randomUUID()
+    }
 }
