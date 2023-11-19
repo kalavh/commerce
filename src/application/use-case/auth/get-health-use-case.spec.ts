@@ -5,7 +5,7 @@ describe('GetHealthUseCase', () => {
     test('should get health return', async () => {
         const sut = container.resolve(GetHealthUseCase)
 
-        const result = await sut.execute()
+        const result = sut.execute()
 
         expect(result).toEqual({ status: 'Server is running' })
     })
