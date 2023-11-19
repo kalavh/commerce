@@ -11,6 +11,8 @@ export class InventoryModel extends Mixin(InventoryEntity, Model) {
     }
 
     $beforeInsert() {
-        this.id = randomUUID()
+        if (!this.id) {
+            this.id = randomUUID()
+        }
     }
 }

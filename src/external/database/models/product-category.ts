@@ -10,6 +10,8 @@ export class ProductCategoryModel extends Mixin(ProductEntity, Model) {
     }
 
     $beforeInsert() {
-        this.id = randomUUID()
+        if (!this.id) {
+            this.id = randomUUID()
+        }
     }
 }

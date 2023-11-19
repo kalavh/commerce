@@ -10,6 +10,8 @@ export class DiscountModel extends Mixin(DiscountEntity, Model) {
     }
 
     $beforeInsert() {
-        this.id = randomUUID()
+        if (!this.id) {
+            this.id = randomUUID()
+        }
     }
 }

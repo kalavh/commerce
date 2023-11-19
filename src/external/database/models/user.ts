@@ -10,6 +10,8 @@ export class UserModel extends Mixin(Model, UserEntity) {
     }
 
     $beforeInsert() {
-        this.id = randomUUID()
+        if (!this.id) {
+            this.id = randomUUID()
+        }
     }
 }

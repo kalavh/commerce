@@ -10,6 +10,8 @@ export class UserAddressModel extends Mixin(UserAddressEntity, Model) {
     }
 
     $beforeInsert() {
-        this.id = randomUUID()
+        if (!this.id) {
+            this.id = randomUUID()
+        }
     }
 }

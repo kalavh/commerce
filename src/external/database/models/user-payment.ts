@@ -10,6 +10,8 @@ export class UserPaymentModel extends Mixin(UserPaymentEntity, Model) {
     }
 
     $beforeInsert() {
-        this.id = randomUUID()
+        if (!this.id) {
+            this.id = randomUUID()
+        }
     }
 }
