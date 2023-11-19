@@ -9,8 +9,8 @@ import { InventoryModel } from '../../../external/database/models/inventory'
 import { createDiscount } from '../../../../test/fixtures/create-discounts'
 import { createProduct } from '../../../../test/fixtures/create-product'
 
-describe('GetHealthUseCase', () => {
-    test('should get health return', async () => {
+describe('CreateProductUseCase', () => {
+    test('Should create product', async () => {
         await startDb()
         const sut = container.resolve(CreateProductUseCase)
 
