@@ -1,4 +1,4 @@
-import { IsDefined, IsNotEmpty, IsNotEmptyObject, IsNumber, IsObject, IsString, IsUUID, ValidateNested } from "class-validator"
+import { IsDefined, IsNotEmptyObject, IsObject, IsString, IsUUID, ValidateNested } from "class-validator"
 import { UserAddressEntity } from "../../../domain/entities/user_address"
 import { Type } from "class-transformer"
 

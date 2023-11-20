@@ -8,7 +8,8 @@ import { UserAddressModel } from "../models/user-address";
 
 export async function seed() {
     logger.info('Start Seeeds')
-    const user: DefaultModelOmit<UserEntity> = {
+    const user = {
+        id: '8d887c80-4ddb-4ae1-9c3b-b2d11bda884e',
         username: 'admin',
         password: 'teste',
         firstName: 'Super',

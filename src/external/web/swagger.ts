@@ -13,6 +13,10 @@ import {
     setup,
 } from 'swagger-ui-express'
 import YAML from 'yaml'
+import { container } from 'tsyringe'
+import { UserRepository } from '../database/repository/user'
+import { sign } from 'jsonwebtoken'
+import settings from '../config/settings'
 export async function setupSwagger(
     app: Express,
 ) {
@@ -52,10 +56,13 @@ export async function setupSwagger(
 
     fs.writeFileSync(path.resolve('swagger.yml'), YAML.stringify(spec))
 
+    const userRepository = container.resolve(UserRepository)
+    const user = await userRepository.findById({ id: '8d887c80-4ddb-4ae1-9c3b-b2d11bda884e' })
+
     const serveInstance = setup(spec, {
         swaggerOptions: {
             persistAuthorization: true,
-            authToken: '',
+            authToken: user ? getAuthIntecepetor({ id: user.id, username: user.username }) : '',
             requestInterceptor: (request: Request) => {
                 request.headers.Authorization = `Bearer ${(window as any).ui.getConfigs().authToken
                     }`
@@ -66,4 +73,14 @@ export async function setupSwagger(
 
     app.use(`/docs`, serve)
     app.get(`/docs`, serveInstance)
+}
+
+function getAuthIntecepetor(payload: { id: string, username: string }) {
+    return sign(
+        payload,
+        settings.ACESS_TOKEN_SECRET,
+        {
+            expiresIn: '20m'
+        }
+    )
 }

@@ -24,4 +24,10 @@ export class UserRepository {
             .first()
             .throwIfNotFound()
     }
+
+    async findById({ id, trx }: { id: string, trx?: Transaction }) {
+        return UserModel
+            .query(trx)
+            .findById(id)
+    }
 }
