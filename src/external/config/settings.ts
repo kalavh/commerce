@@ -49,4 +49,16 @@ export default {
   get LOG_LEVEL(): string {
     return process.env.LOG_LEVEL || 'silly'
   },
+  get ACESS_TOKEN_SECRET() {
+    if (!process.env.ACESS_TOKEN_SECRET) {
+      throw new Error("Env ACESS_TOKEN_SECRET not found");
+    }
+    return process.env.ACESS_TOKEN_SECRET
+  },
+  get REFRESH_TOKEN_SECRET() {
+    if (!process.env.REFRESH_TOKEN_SECRET) {
+      throw new Error("Env DATABASE_DB_NAME not found");
+    }
+    return process.env.REFRESH_TOKEN_SECRET
+  }
 };

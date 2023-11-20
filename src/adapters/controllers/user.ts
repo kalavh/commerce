@@ -6,14 +6,14 @@ import { CreateUserSchema } from "../schemas/user/create-user-schema";
 import { CreateUserUseCase } from "../../application/use-case/user/create-user-use-case";
 import { UserSerializer } from "../serializers/user";
 import { LoginSchema } from "../schemas/auth/login-schema";
-import { LoginUseCase } from "../../application/use-case/user/login-use-case";
+import { AuthUseCase } from "../../application/use-case/user/auth-use-case";
 
 @JsonController('/')
 @injectable()
 export class Health {
     constructor(
         private readonly createUserUseCase: CreateUserUseCase,
-        private readonly loginUseCase: LoginUseCase
+        private readonly authUseCase: AuthUseCase
     ) { }
 
     @OpenAPI({
@@ -33,6 +33,6 @@ export class Health {
     @Post('/login')
     @Serializer(UserSerializer)
     login(@StrictBody() data: LoginSchema) {
-        return this.loginUseCase.execute({ data })
+        return this.authUseCase.execute({ data })
     }
 }

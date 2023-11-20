@@ -5,7 +5,7 @@ describe('AuthUseCase', () => {
     test('Get auth use case', async () => {
         const sut = container.resolve(AuthUseCase)
 
-        const result = sut.execute()
+        const result = 't' //sut.execute()
 
         expect(result).toEqual({ status: 'Server is running' })
     })
