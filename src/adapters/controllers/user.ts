@@ -32,7 +32,7 @@ export class Health {
     })
     @Post('/login')
     @Serializer(UserSerializer)
-    login(@StrictBody() filters: LoginSchema) {
-        return this.loginUseCase.execute({ filters })
+    login(@StrictBody() data: LoginSchema) {
+        return this.loginUseCase.execute({ data })
     }
 }
