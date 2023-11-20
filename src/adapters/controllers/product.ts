@@ -28,7 +28,7 @@ export class Health {
         summary: 'Create products',
         description: 'This route create a product'
     })
-    @Post('/')
+    @Post()
     create(@StrictBody() data: CreateProductSchema) {
         return this.createProductUseCase.execute({ data })
     }

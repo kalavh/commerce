@@ -4,6 +4,8 @@
 
 This project is a simple e-commerce application. You can access the API documentation by visiting the route `/docs`, where you will find information about all available routes and their associated request and response schemas.
 
+Default port will be 8080
+
 To start a project, you should follow the `Requirements` section and begin by running:
 ```bash
 docker compose up 

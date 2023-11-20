@@ -3,7 +3,7 @@ import { OpenAPI } from "routing-controllers-openapi";
 import { injectable } from 'tsyringe'
 import { GetHealthUseCase } from "../../application/use-case/health/get-health-use-case";
 
-@JsonController('/health')
+@JsonController()
 @injectable()
 export class Health {
   constructor(
@@ -14,9 +14,9 @@ export class Health {
     summary: 'Server Health',
     description: 'This is to check if server is running'
   })
-  @Get('/')
+  @Get('/health')
   getHealth() {
+    console.log(this.getHealthUseCase)
     return this.getHealthUseCase.execute()
   }
-
 }

@@ -1,3 +1,5 @@
+import { UserAddressEntity } from "./user_address"
+
 export class UserEntity {
     id: string
 
@@ -17,5 +19,9 @@ export class UserEntity {
 
     createdAt: Date
 
-    deletedAt: Date
+    updatedAt?: Date
+
+    deletedAt?: Date
+
+    userAddress?: UserAddressEntity
 }

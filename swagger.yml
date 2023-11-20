@@ -127,7 +127,7 @@ info:
   description: This project is amateur eccommerce
 openapi: 3.0.0
 paths:
-  /health/:
+  /health:
     get:
       operationId: Health.getHealth
       responses:
@@ -151,7 +151,6 @@ paths:
       tags:
         - Health
       description: This route list products
-  /product/:
     post:
       operationId: Health.create
       requestBody:
@@ -170,7 +169,7 @@ paths:
       tags:
         - Health
       description: This route create a product
-  //register:
+  /register:
     post:
       operationId: Health.create
       requestBody:
@@ -191,7 +190,7 @@ paths:
       tags:
         - Health
       description: Create user
-  //login:
+  /login:
     post:
       operationId: Health.login
       requestBody:
@@ -213,5 +212,5 @@ paths:
         - Health
       description: Login route
 servers:
-  - url: http://localhost:5000/
+  - url: http://localhost:8080
     description: Development
