@@ -24,18 +24,19 @@ export class AuthUseCase {
   ) { }
 
   async execute({ data, trx }: GenericUseCaseType<Data>) {
-    const user = await this.userRepository.login({ data: { username: data.username }, trx })
-    const validation = await this.encryptionProvider.verify(data.password, user.password)
+    try {
+      const user = await this.userRepository.login({ data: { username: data.username }, trx })
+      const validation = await this.encryptionProvider.verify(data.password, user.password)
+      if (!validation) throw new Error()
 
-    if (!validation) {
+      return {
+        acessToken: this.createAcessToken({
+          id: user.id,
+          username: user.username
+        })
+      }
+    } catch (err) {
       throw new UnauthorizedError()
-    }
-
-    return {
-      acessToken: this.createAcessToken({
-        id: user.id,
-        username: user.username
-      })
     }
   }
 
